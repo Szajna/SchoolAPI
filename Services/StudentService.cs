@@ -1,61 +1,59 @@
 ﻿using SchoolAPI.Models;
+using SchoolAPI.Data;
 
 namespace SchoolAPI.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly DataContext _context;
+        private readonly DataContext context;
         public StudentService(DataContext context)
         {
-            _context = context;
+            this.context = context;
         }
+
         public async Task<List<Student>> AddStudent(Student student)
         {
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
-            return await _context.Students.ToListAsync();
+            context.Students.Add(student);
+
+            await context.SaveChangesAsync();
+            return await context.Students.ToListAsync();
         }
 
-        public async Task<List<Student>> DeleteStudent(string LastName)
+        public async Task<List<Student>> DeleteStudent(string Id)
         {
-            var DbStudent = await _context.Students.FindAsync(LastName);
-            if (DbStudent == null)
-                return BadRequest("Student not found.");
-            _context.Students.Remove(DbStudent);
+            var DbStudent = await context.Students.FindAsync(Id);
 
-            await _context.SaveChangesAsync();
+            context.Students.Remove(DbStudent);
 
-            return await _context.Students.ToListAsync();
+            await context.SaveChangesAsync();
+            return await context.Students.ToListAsync();
         }
 
-        public async Task<List<Student>> Get()
+        public async Task<List<Student>> GetAllStudents()
         {
-            return await _context.Students.ToListAsync();
+            return await context.Students.ToListAsync();
         }
 
-        public async Task<Student> Get(string LastName)
+        public async Task<Student> GetStudent(string Id)
         {
-            var student = await _context.Students.FindAsync(LastName);
-            if (student == null)
-                return BadRequest("Student not found.");
+            var student = await context.Students.FindAsync(Id);
+            
             return student;
         }
 
         public async Task<List<Student>> UpdateStudent(Student request)
         {
-            var DbStudent = await _context.Students.FindAsync(request.LastName);
-            if (DbStudent == null)
-                return BadRequest("Student not found.");
+            var DbStudent = await context.Students.FindAsync(request.LastName);
 
+            DbStudent.Id = request.Id;
             DbStudent.FirstName = request.FirstName;
             DbStudent.LastName = request.LastName;
             DbStudent.Address = request.Address;
             DbStudent.City = request.City;
             DbStudent.PostCode = request.PostCode;
 
-            await _context.SaveChangesAsync();
-
-            return await _context.Students.ToListAsync();
+            await context.SaveChangesAsync();
+            return await context.Students.ToListAsync();
         }
     }
 }

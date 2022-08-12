@@ -9,39 +9,39 @@ namespace SchoolAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentService _studentService;
+        private readonly IStudentService studentService;
         public StudentController(IStudentService studentService)
         {
-            _studentService = studentService;
+            this.studentService = studentService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<Student>>> Get()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<Student>>> GetAllStudents()
         {
-            return Ok(_studentService.Get());
+            return Ok(await studentService.GetAllStudents());
         }
-        [HttpGet("{LastName}")]
-        public async Task<ActionResult<Student>> Get(string LastName)
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<Student>> GetStudent(string Id)
         {
-            return Ok(_studentService.Get(LastName));
+            return Ok(await studentService.GetStudent(Id));
         }
 
         [HttpPost]
         public async Task<ActionResult<List<Student>>> AddStudent(Student student)
         {
-            return Ok(_studentService.AddStudent(student));
+            return Ok(await studentService.AddStudent(student));
         }
 
         [HttpPut]
         public async Task<ActionResult<List<Student>>> UpdateStudent(Student request)
         {
-            return Ok(_studentService.UpdateStudent(request));
+            return Ok(await studentService.UpdateStudent(request));
         }
 
-        [HttpDelete("{LastName}")]
-        public async Task<ActionResult<List<Student>>> DeleteStudent(string LastName)
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<List<Student>>> DeleteStudent(string Id)
         {
-            return Ok(_studentService.DeleteStudent(LastName));
+            return Ok(await studentService.DeleteStudent(Id));
         }
     }
 }

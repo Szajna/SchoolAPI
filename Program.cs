@@ -1,6 +1,8 @@
 global using SchoolAPI.Data;
 global using Microsoft.EntityFrameworkCore;
 global using SchoolAPI.Services;
+global using SchoolAPI.Contracts;
+global using SchoolAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 builder.Services.AddScoped<IStudentService, StudentService>();
 
 
