@@ -5,9 +5,9 @@ namespace SchoolAPI.Services
     public interface IStudentService
     {
         Task<Student> AddStudent(Student student);
-        Task<List<Student>> DeleteStudent(string Id);
+        Task<Student> DeleteStudent(string Id);
         Task<List<Student>> GetAllStudents();
         Task<Student> GetStudent(string Id);
-        Task<List<Student>> UpdateStudent(Student request);
+        Task<Student> UpdateStudent(Student request);
     }
 }

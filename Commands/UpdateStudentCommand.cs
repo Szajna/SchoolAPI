@@ -2,7 +2,7 @@
 
 namespace SchoolAPI.Commands
 {
-    public class CreateStudentCommand : IRequest<Student>
+    public class UpdateStudentCommand : IRequest<Student>
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -11,7 +11,8 @@ namespace SchoolAPI.Commands
         public string PostCode { get; set; }
         public string City { get; set; }
         public string FatherName { get; set; }
-        public CreateStudentCommand(Student student)
+
+        public UpdateStudentCommand(Student student)
         {
             FirstName = student.FirstName;
             LastName = student.LastName;

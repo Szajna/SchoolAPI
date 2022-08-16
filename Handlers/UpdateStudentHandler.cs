@@ -3,17 +3,17 @@ using SchoolAPI.Commands;
 
 namespace SchoolAPI.Handlers
 {
-    public class CreateStudentHandler : IRequestHandler<CreateStudentCommand, Student>
+    public class UpdateStudentHandler : IRequestHandler<UpdateStudentCommand, Student>
     {
         private readonly IStudentService _studentService;
 
-        public CreateStudentHandler(IStudentService studentService)
+        public UpdateStudentHandler(IStudentService studentService)
         {
             _studentService = studentService;
         }
-        public async Task<Student> Handle(CreateStudentCommand request, CancellationToken cancellationToken)
+        public async Task<Student> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
         {
-            var studentToAdd = new Student
+            var studentToUpdate = new Student
             {
                 Address = request.Address,
                 Birthdate = request.Birthdate,
@@ -23,7 +23,7 @@ namespace SchoolAPI.Handlers
                 FirstName = request.FirstName,
                 PostCode = request.PostCode,
             };
-            var student = await _studentService.AddStudent(studentToAdd);
+            var student = await _studentService.UpdateStudent(studentToUpdate);
             return student;
         }
     }

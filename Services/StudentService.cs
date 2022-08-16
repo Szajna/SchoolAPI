@@ -19,14 +19,14 @@ namespace SchoolAPI.Services
             return student;
         }
 
-        public async Task<List<Student>> DeleteStudent(string Id)
+        public async Task<Student> DeleteStudent(string Id)
         {
             var DbStudent = await context.Students.FindAsync(Id);
 
             context.Students.Remove(DbStudent);
 
             await context.SaveChangesAsync();
-            return await context.Students.ToListAsync();
+            return DbStudent;
         }
 
         public async Task<List<Student>> GetAllStudents()
@@ -41,11 +41,10 @@ namespace SchoolAPI.Services
             return student;
         }
 
-        public async Task<List<Student>> UpdateStudent(Student request)
+        public async Task<Student> UpdateStudent(Student request)
         {
             var DbStudent = await context.Students.FindAsync(request.LastName);
 
-            DbStudent.Id = request.Id;
             DbStudent.FirstName = request.FirstName;
             DbStudent.LastName = request.LastName;
             DbStudent.Address = request.Address;
@@ -53,7 +52,7 @@ namespace SchoolAPI.Services
             DbStudent.PostCode = request.PostCode;
 
             await context.SaveChangesAsync();
-            return await context.Students.ToListAsync();
+            return request;
         }
     }
 }

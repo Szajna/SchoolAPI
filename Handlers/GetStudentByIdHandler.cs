@@ -11,10 +11,8 @@ namespace SchoolAPI.Handlers
         {
             _studentService = studentService;
         }
-
         public async Task<Student> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {
-
             var student = await _studentService.GetStudent(request.Id);
             if (student == null)
             {
