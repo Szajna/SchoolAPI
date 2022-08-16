@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolAPI.Models;
 using SchoolAPI.Services;
+using SchoolAPI.Queries;
+using MediatR;
 
 namespace SchoolAPI.Controllers
 {
@@ -10,26 +12,33 @@ namespace SchoolAPI.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IStudentService studentService;
-        public StudentController(IStudentService studentService)
+        private readonly IMediator _mediator;
+        public StudentController(IStudentService studentService, IMediator mediator)
         {
             this.studentService = studentService;
+            _mediator = mediator;
         }
 
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<Student>>> GetAllStudents()
         {
-            return Ok(await studentService.GetAllStudents());
+            var query = new GetAllStudentsQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+            
         }
         [HttpGet("{Id}")]
-        public async Task<ActionResult<Student>> GetStudent(string Id)
+        public async Task<ActionResult<Student>> GetStudent(string studentId)
         {
-            return Ok(await studentService.GetStudent(Id));
+            var query = new GetStudentByIdQuery(studentId);
+            var result = await _mediator.Send(query);
+            return result != null ? Ok(result) : NotFound();
         }
-
         [HttpPost]
-        public async Task<ActionResult<List<Student>>> AddStudent(Student student)
+        public async Task<ActionResult<Student>> AddStudent(Student student)
         {
-            return Ok(await studentService.AddStudent(student));
+            var result = await _mediator.Send(student);
+            return Ok(student);
         }
 
         [HttpPut]

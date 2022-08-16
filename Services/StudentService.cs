@@ -11,12 +11,12 @@ namespace SchoolAPI.Services
             this.context = context;
         }
 
-        public async Task<List<Student>> AddStudent(Student student)
+        public async Task<Student> AddStudent(Student student)
         {
             context.Students.Add(student);
 
             await context.SaveChangesAsync();
-            return await context.Students.ToListAsync();
+            return student;
         }
 
         public async Task<List<Student>> DeleteStudent(string Id)
