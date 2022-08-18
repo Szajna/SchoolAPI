@@ -5,45 +5,45 @@ namespace SchoolAPI.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly DataContext context;
+        private readonly DataContext _context;
         public StudentService(DataContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<Student> AddStudent(Student student)
         {
-            context.Students.Add(student);
+            _context.Students.Add(student);
 
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return student;
         }
 
         public async Task<Student> DeleteStudent(string Id)
         {
-            var DbStudent = await context.Students.FindAsync(Id);
+            var DbStudent = await _context.Students.FindAsync(Id);
 
-            context.Students.Remove(DbStudent);
+            _context.Students.Remove(DbStudent);
 
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return DbStudent;
         }
 
         public async Task<List<Student>> GetAllStudents()
         {
-            return await context.Students.ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
         public async Task<Student> GetStudent(string Id)
         {
-            var student = await context.Students.FindAsync(Id);
+            var student = await _context.Students.FindAsync(Id);
             
             return student;
         }
 
         public async Task<Student> UpdateStudent(Student request)
         {
-            var DbStudent = await context.Students.FindAsync(request.LastName);
+            var DbStudent = await _context.Students.FindAsync(request.Id);
 
             DbStudent.FirstName = request.FirstName;
             DbStudent.LastName = request.LastName;
@@ -51,7 +51,7 @@ namespace SchoolAPI.Services
             DbStudent.City = request.City;
             DbStudent.PostCode = request.PostCode;
 
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return request;
         }
     }

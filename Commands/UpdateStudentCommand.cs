@@ -11,7 +11,6 @@ namespace SchoolAPI.Commands
         public string PostCode { get; set; }
         public string City { get; set; }
         public string FatherName { get; set; }
-
         public UpdateStudentCommand(Student student)
         {
             FirstName = student.FirstName;

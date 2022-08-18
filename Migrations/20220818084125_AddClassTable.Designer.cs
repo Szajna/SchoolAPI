@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolAPI.Data;
 
@@ -11,9 +12,10 @@ using SchoolAPI.Data;
 namespace SchoolAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220818084125_AddClassTable")]
+    partial class AddClassTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,27 +36,6 @@ namespace SchoolAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classes");
-                });
-
-            modelBuilder.Entity("SchoolAPI.Models.Group", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Supervisor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("SchoolAPI.Models.Student", b =>
@@ -84,9 +65,6 @@ namespace SchoolAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("GroupId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -99,8 +77,6 @@ namespace SchoolAPI.Migrations
 
                     b.HasIndex("ClassId");
 
-                    b.HasIndex("GroupId");
-
                     b.ToTable("Students");
                 });
 
@@ -109,18 +85,9 @@ namespace SchoolAPI.Migrations
                     b.HasOne("SchoolAPI.Models.Class", null)
                         .WithMany("Students")
                         .HasForeignKey("ClassId");
-
-                    b.HasOne("SchoolAPI.Models.Group", null)
-                        .WithMany("Students")
-                        .HasForeignKey("GroupId");
                 });
 
             modelBuilder.Entity("SchoolAPI.Models.Class", b =>
-                {
-                    b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("SchoolAPI.Models.Group", b =>
                 {
                     b.Navigation("Students");
                 });

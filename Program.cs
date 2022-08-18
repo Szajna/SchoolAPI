@@ -5,6 +5,7 @@ global using SchoolAPI.Models;
 using MediatR;
 using System.Reflection;
 using SchoolAPI.Queries;
+using SchoolAPI.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 
 builder.Services.AddMediatR(typeof(GetAllStudentsQuery).GetTypeInfo().Assembly);
 
