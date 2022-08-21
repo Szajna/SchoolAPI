@@ -39,9 +39,9 @@ namespace SchoolAPI.Controllers
         }
 
         [HttpPut("{Id},{student}")]
-        public async Task<ActionResult<Group>> AddStudentsToGroup(string groupId, string studentId)
+        public async Task<ActionResult<Group>> AddStudentsToGroup(string groupId, List<string> students)
         {
-            var query = new AddStudentsToGroupCommand(groupId, studentId);
+            var query = new AddStudentsToGroupCommand(groupId, students);
             var result = await _mediator.Send(query);
             return (result != null) ? Ok(result) : NotFound();
         }

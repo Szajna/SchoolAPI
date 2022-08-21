@@ -4,9 +4,9 @@ namespace SchoolAPI.Commands
 {
     public class CreateGroupCommand : IRequest<Group>
     {
-        public string Name { get; set; }
-        public int Year { get; set; }
-        public string Supervisor { get; set; }
+        public string Name { get; }
+        public int Year { get; }
+        public string Supervisor { get; }
 
         public CreateGroupCommand(Group group)
         {

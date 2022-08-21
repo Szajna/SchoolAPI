@@ -12,12 +12,21 @@ namespace SchoolAPI.Services
             _context = context;
         }
 
-        public async Task<Group> AddStudentsToGroup(string groupId, string studentId)
+        public async Task<Group> AddStudentsToGroup(string groupId, List<string> students)
         {
             var groupRequest = await _context.Groups.FindAsync(groupId);
-            var studentRequest = await _context.Students.FindAsync(studentId);
 
-            groupRequest.Students.Add(studentRequest);
+            foreach (var studentId in students)
+            {
+                foreach (var student in _context.Students)
+                {
+                    if(student.Id == studentId)
+                    {
+                        groupRequest.Students.Add(student);
+                    }
+                }
+            }
+
             await _context.SaveChangesAsync();
 
             return groupRequest;
