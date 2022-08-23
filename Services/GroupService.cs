@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using SchoolAPI.Contracts;
+using System.Threading.Tasks.Dataflow;
 
 namespace SchoolAPI.Services
 {
@@ -58,6 +60,9 @@ namespace SchoolAPI.Services
         public async Task<Group> GetGroup(string Id)
         {
             var group = await _context.Groups.FindAsync(Id);
+
+            var students = await _context.Students.Where(x => x.GroupId == group.Id).ToListAsync();
+            group.Students = students;
 
             return group;
         }
