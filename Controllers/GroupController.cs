@@ -22,7 +22,7 @@ namespace SchoolAPI.Controllers
             return Ok(await _mediator.Send(new GetAllGroupsQuery()));
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet]
         public async Task<ActionResult<Group>> GetGroup(string groupId)
         {
             var query = new GetGroupByIdQuery(groupId);
@@ -38,10 +38,10 @@ namespace SchoolAPI.Controllers
             return (result != null) ? Ok(result) : NotFound();
         }
 
-        [HttpPut("{Id},{student}")]
-        public async Task<ActionResult<Group>> AddStudentsToGroup(string groupId, List<string> students)
+        [HttpPut("(AddStudentToGroup)")]
+        public async Task<ActionResult<Group>> AddStudentsToGroup(string groupId, string studentId)
         {
-            var query = new AddStudentsToGroupCommand(groupId, students);
+            var query = new AddStudentsToGroupCommand(groupId, studentId);
             var result = await _mediator.Send(query);
             return (result != null) ? Ok(result) : NotFound();
         }

@@ -5,12 +5,12 @@ namespace SchoolAPI.Commands
     public class AddStudentsToGroupCommand : IRequest<Group>
     {
         public string GroupId { get; }
-        public List<string> Students { get; }
+        public string StudentId { get; }
 
-        public AddStudentsToGroupCommand(string groupId, List<string> students)
+        public AddStudentsToGroupCommand(string groupId, string studentId)
         {
             GroupId = groupId;
-            Students = students;
+            StudentId = studentId;
         }
     }
 }

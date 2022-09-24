@@ -16,7 +16,7 @@ namespace SchoolAPI.Handlers
         public async Task<Group> Handle(AddStudentsToGroupCommand request, CancellationToken cancellationToken)
         {
                         
-            var group = await _groupService.AddStudentsToGroup(request.GroupId, request.Students);
+            var group = await _groupService.AddStudentsToGroup(request.GroupId, request.StudentId);
             return group;
         }
     }

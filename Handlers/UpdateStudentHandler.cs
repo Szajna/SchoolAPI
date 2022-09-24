@@ -22,6 +22,7 @@ namespace SchoolAPI.Handlers
                 FatherName = request.FatherName,
                 FirstName = request.FirstName,
                 PostCode = request.PostCode,
+                GroupId = request.GroupId,
             };
             var student = await _studentService.UpdateStudent(studentToUpdate);
             return student;

@@ -31,7 +31,8 @@ namespace SchoolAPI.Services
 
         public async Task<List<Student>> GetAllStudents()
         {
-            return await _context.Students.ToListAsync();
+            var students = await _context.Students.AsNoTracking().ToListAsync();
+            return students;
         }
 
         public async Task<Student> GetStudent(string Id)

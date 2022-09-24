@@ -11,6 +11,7 @@ namespace SchoolAPI.Commands
         public string PostCode { get; }
         public string City { get; }
         public string FatherName { get; }
+        public string GroupId { get; set; }
         public UpdateStudentCommand(Student student)
         {
             FirstName = student.FirstName;
@@ -20,6 +21,7 @@ namespace SchoolAPI.Commands
             PostCode = student.PostCode;
             City = student.City;
             FatherName = student.FatherName;
+            GroupId = student.GroupId;
         }
     }
 }

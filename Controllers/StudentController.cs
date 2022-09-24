@@ -14,20 +14,19 @@ namespace SchoolAPI.Controllers
         {
             _mediator = mediator;
         }
-
+        
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<Student>>> GetAllStudents()
         {
             return Ok(await _mediator.Send(new GetAllStudentsQuery()));
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet]
         public async Task<ActionResult<Student>> GetStudent(string studentId)
         {
             var query = new GetStudentByIdQuery(studentId);
             var result = await _mediator.Send(query);
             return (result != null) ? Ok(result) : NotFound();
-            //return await _mediator.Send(new GetStudentByIdQuery(studentId)) != null ? Ok(await _mediator.Send(new GetStudentByIdQuery(studentId))) : NotFound();
         }
 
         [HttpPost]
@@ -36,7 +35,6 @@ namespace SchoolAPI.Controllers
             var query = new CreateStudentCommand(student);
             var result = await _mediator.Send(query);
             return (result != null) ? Ok(result) : NotFound();
-            //return await _mediator.Send(new CreateStudentCommand(student)) != null ? Ok(await _mediator.Send(new CreateStudentCommand(student))) : NotFound();
         }
 
         [HttpPut]
@@ -45,7 +43,6 @@ namespace SchoolAPI.Controllers
             var query = new UpdateStudentCommand(request);
             var result = await _mediator.Send(query);
             return (result != null) ? Ok(result) : NotFound();
-            //return await _mediator.Send(new UpdateStudentCommand(request)) != null ? Ok(await _mediator.Send(new UpdateStudentCommand(request))) : NotFound();
         }
 
         [HttpDelete("{Id}")]
@@ -54,7 +51,6 @@ namespace SchoolAPI.Controllers
             var query = new DeleteStudentCommand(Id);
             var result = await _mediator.Send(query);
             return (result != null) ? Ok(result) : NotFound();
-            //return await _mediator.Send(new DeleteStudentCommand(Id)) != null ? Ok(await _mediator.Send(new DeleteStudentCommand(Id))) : NotFound();
         }
     }
 }
